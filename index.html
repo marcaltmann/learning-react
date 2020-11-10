@@ -13,7 +13,34 @@
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
 
     <script>
-      const h1 = React.createElement('h1', { id: 'header', className: 'title' }, 'This is only a test!');
+      const h1 = React.createElement('h1', { key: 0, id: 'header', className: 'title' }, 'This is only a test!');
+
+      const list = React.createElement(
+        'ul',
+        { key: 1, className: 'list' },
+        React.createElement('li', null, 'First item'),
+        React.createElement('li', null, 'Second item'),
+        React.createElement('li', null, 'Third item'),
+      );
+
+      function List({ list }) {
+        return React.createElement(
+          'ul',
+          { className: 'list' },
+          list.map((item, index) => React.createElement('li', { key: index }, item))
+        );
+      }
+
+      const list2 = ['first', 'second', 'third'];
+      const listElement = React.createElement(List, { key: 2, list: list2 });
+
+      const rootEl = document.getElementById('root');
+
+      ReactDOM.render([
+        h1,
+        list,
+        listElement,
+      ], rootEl);
     </script>
   </body>
 </html>
